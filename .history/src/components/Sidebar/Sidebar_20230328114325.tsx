@@ -1,0 +1,35 @@
+import React from "react";
+import Logo from "./Logo.png";
+import { ReactComponent as HomeIcon } from "./icons/Vector.svg";
+import { ReactComponent as MessageIcon } from "./icons/Messages.svg";
+import { ReactComponent as AnimalsCards } from "./icons/AnimalsCards.svg";
+
+const Sidebar = () => {
+  return (
+    <div className="flex flex-col items-start justify-start gap-11">
+      <img
+        src={Logo}
+        alt="Logo"
+      />
+
+      <ul>
+        <li>
+          <HomeIcon /> Dashboard
+        </li>
+        <li>
+          <MessageIcon /> Wiadomości
+        </li>
+        <li>
+          <AnimalsCards /> Karty zwierząt
+        </li>
+        <li>Wolontariat</li>
+      </ul>
+
+      <p className="uppercase text-[12px] text-midGray3 font-semibold">
+        Organizacja
+      </p>
+    </div>
+  );
+};
+
+export default Sidebar;

@@ -1,0 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    *{
+        @apply font-Inter
+    }
+}
+
+
+@layer components {
+    .hoverEffect{
+        @apply hover:scale-105 transition-all duration-200 active:scale-95
+    }
+
+    .loginButton{
+        @apply w-full bg-Primary/PR600 text-lightGray5 font-medium rounded-lg py-2 px-2
+    }
+    .registerButton{
+        @apply w-full bg-white border border-Primary/PR100 text-darkGray2 font-medium rounded-lg py-2 px-2 shadow-registerBtn
+    }
+
+    .listLink {
+        @apply flex gap-3 items-center tracking-veryVeryTight text-darkGray2 text-sm font-medium px-1 py-1 hover:cursor-pointer transition-all duration-300 hover:bg-gray-200
+    }
+}
