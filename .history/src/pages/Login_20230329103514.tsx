@@ -1,12 +1,12 @@
 import React from "react";
 import Form from "../components/Form/Form";
 
-const LoginSite = () => {
+const Login = () => {
   return (
-    <div>
+    <main>
       <Form />
-    </div>
+    </main>
   );
 };
 
-export default LoginSite;
+export default Login;
