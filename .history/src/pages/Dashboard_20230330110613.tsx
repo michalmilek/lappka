@@ -9,6 +9,7 @@ import { ReactComponent as HeartIcon } from "../components/Card/icons/HeartIcon.
 import useShelterStats from "../hooks/useShelterStats";
 import useShelterCards from "../hooks/useShelterCards";
 import Chart from "../components/Chart";
+import Volunteering from "../components/Volunteering";
 
 const Dashboard = () => {
   const { data: fetchedData } = useShelterStats();
@@ -53,8 +54,9 @@ const Dashboard = () => {
             />
           ))}
         </article>
-        <article className="mt-4 flex justify-between">
+        <article className="mt-4 px-6 py-2 flex items-center justify-between">
           <Chart />
+          <Volunteering />
         </article>
       </section>
     </main>
