@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.DASHBOARD,
-    element: <ProtectedRoute Component={<DashboardLayout />} />,
+    element: <ProtectedRoute {...(<DashboardLayout />)} />,
     children: [
       {
         path: ROUTES.DASHBOARD,

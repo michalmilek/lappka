@@ -28,15 +28,15 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.DASHBOARD,
-    element: <ProtectedRoute Component={<DashboardLayout />} />,
+    element: <ProtectedRoute {...(<DashboardLayout />)} />,
     children: [
       {
         path: ROUTES.DASHBOARD,
-        element: <Dashboard />,
+        element: <ProtectedRoute {...(<Dashboard />)} />,
       },
       {
         path: ROUTES.ANIMALSCARDS,
-        element: <AnimalCardsSite />,
+        element: <ProtectedRoute {...(<AnimalCardsSite />)} />,
       },
     ],
   },

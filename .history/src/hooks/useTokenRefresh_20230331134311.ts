@@ -16,9 +16,9 @@ export const useTokenRefresh = () => {
         refreshAuthToken();
         console.log("test");
       }
-    }, 30000);
+    }, 10000); // 5 minutes
 
-    return () => clearInterval(interval);
+    /* return () => clearInterval(interval); */
   }, [accessToken, refreshToken]);
 
   return [accessToken, refreshToken];

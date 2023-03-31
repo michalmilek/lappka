@@ -16,7 +16,6 @@ import DashboardLayout from "./pages/DashboardLayout";
 import AnimalCardsSite from "./pages/dashboardChildren/AnimalCardsSite";
 import { useTokenRefresh } from "./hooks/useTokenRefresh";
 import { isTokenExpired } from "./services/ShelterServices";
-import ProtectedRoute from "./router/ProtectedRoute";
 
 const protectedRoutes = localStorage.getItem("accessToken");
 //osobny komponent
@@ -28,7 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.DASHBOARD,
-    element: <ProtectedRoute Component={<DashboardLayout />} />,
+    element: protectedRoutes ? (
+      <DashboardLayout />
+    ) : (
+      <Navigate to={ROUTES.HOME} />
+    ),
     children: [
       {
         path: ROUTES.DASHBOARD,
@@ -36,6 +39,10 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.ANIMALSCARDS,
+        element: <AnimalCardsSite />,
+      },
+      {
+        path: "*",
         element: <AnimalCardsSite />,
       },
     ],

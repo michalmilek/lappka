@@ -1,5 +1,6 @@
+import axios from "axios";
+import { refreshAuth } from "./authHeader";
 import jwt_decode from "jwt-decode";
-import { refreshAuth } from "./authService";
 import { PetInstance } from "./axiosInstances";
 
 const token = localStorage.getItem("accessToken");

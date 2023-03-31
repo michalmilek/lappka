@@ -1,6 +1,6 @@
+import axios from "axios";
+import { refreshAuth } from "./authHeader";
 import jwt_decode from "jwt-decode";
-import { refreshAuth } from "./authService";
-import { PetInstance } from "./axiosInstances";
 
 const token = localStorage.getItem("accessToken");
 const token2 = token?.replace(/["]/g, "");
@@ -33,12 +33,13 @@ const token2 = token?.replace(/["]/g, "");
 ); */
 
 export const getShelterStats = () => {
-  const response = PetInstance.get("/shelters/stats", {
-    headers: {
-      Authorization: `Bearer ${token2}`,
-      accept: "text/json",
-    },
-  })
+  const response = axios
+    .get(process.env.REACT_APP_PET_URL + "/shelters/stats", {
+      headers: {
+        Authorization: `Bearer ${token2}`,
+        accept: "text/json",
+      },
+    })
     .then((res) => res.data)
     .catch((e) => {
       console.log(e);
@@ -47,15 +48,17 @@ export const getShelterStats = () => {
   return response;
 };
 export const getShelterCards = (number: number) => {
-  const response = PetInstance.get(
-    `/shelters/cards?pageNumber=${number ? number : 1}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token2}`,
-        accept: "text/json",
-      },
-    }
-  )
+  const response = axios
+    .get(
+      process.env.REACT_APP_PET_URL +
+        `/shelters/cards?pageNumber=${number ? number : 1}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token2}`,
+          accept: "text/json",
+        },
+      }
+    )
     .then((res) => res.data)
     .catch((e) => {
       console.log(e);
@@ -103,17 +106,16 @@ export const refreshAuthToken = async () => {
   console.log(isExpired);
 
   if (!refreshToken) {
-    window.location.href = "/";
+    window.location.href = "/login";
     return;
   }
 
   if (isExpired) {
     try {
       refreshAuth();
-      console.log(refreshAuth());
     } catch (error) {
       console.error("Failed try to refresh token:", error);
-      window.location.href = "/";
+      window.location.href = "/login";
     }
   }
 };
