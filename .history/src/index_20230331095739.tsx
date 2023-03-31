@@ -38,10 +38,6 @@ const router = createBrowserRouter([
         path: ROUTES.ANIMALSCARDS,
         element: <AnimalCardsSite />,
       },
-      {
-        path: "*",
-        element: <AnimalCardsSite />,
-      },
     ],
   },
 ]);
@@ -49,7 +45,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 300000,
+      staleTime: 300,
     },
   },
 });

@@ -19,8 +19,9 @@ axios.interceptors.response.use(
          refreshAuth();
          const delayRetryRequest = new Promise<void>((resolve) => {
            setTimeout(() => {
+             console.log("retry the request", config.url);
              resolve();
-           }, 1000);
+           }, config.retryDelay || 1000);
          });
          return delayRetryRequest.then(() => axios(config));
        } catch (error) {

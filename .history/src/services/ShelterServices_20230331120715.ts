@@ -20,7 +20,7 @@ axios.interceptors.response.use(
          const delayRetryRequest = new Promise<void>((resolve) => {
            setTimeout(() => {
              resolve();
-           }, 1000);
+           }, config.retryDelay || 1000);
          });
          return delayRetryRequest.then(() => axios(config));
        } catch (error) {

@@ -104,7 +104,6 @@ const Table = () => {
         />
         {allPages.map((pageNumber) => (
           <span
-            key={pageNumber}
             className={`arrow ${pageNumber === currentPage && "font-bold"}`}
             onClick={() => setCurrentPage(pageNumber)}>
             {pageNumber}

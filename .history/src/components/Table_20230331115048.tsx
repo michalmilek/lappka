@@ -62,7 +62,6 @@ const Table = () => {
         <tbody>
           {animals?.items.map((OneAnimal: Animal, index: number) => (
             <tr
-              key={index + OneAnimal.name}
               className={`${
                 (index / 2) % 1 ? "bg-gray-100" : "bg-white"
               } text-center `}>
@@ -104,7 +103,6 @@ const Table = () => {
         />
         {allPages.map((pageNumber) => (
           <span
-            key={pageNumber}
             className={`arrow ${pageNumber === currentPage && "font-bold"}`}
             onClick={() => setCurrentPage(pageNumber)}>
             {pageNumber}
