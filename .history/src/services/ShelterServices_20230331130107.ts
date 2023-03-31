@@ -99,6 +99,7 @@ export const isTokenExpired = (token: any) => {
 export const refreshAuthToken = async () => {
   const refreshToken = getRefreshToken();
   if (!refreshToken) {
+    // Brak Refresh Tokena - przekierowanie do strony logowania
     window.location.href = "/login";
     return;
   }

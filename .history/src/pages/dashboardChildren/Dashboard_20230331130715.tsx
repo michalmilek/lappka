@@ -12,6 +12,7 @@ import Chart from "../../components/Chart";
 import Volunteering from "../../components/Volunteering";
 import AnimalCards from "../../components/AnimalCards";
 import MostPopularAnimals from "../../components/MostPopularAnimals";
+import { isTokenExpired } from "../../services/ShelterServices";
 
 const Dashboard = () => {
   const { data: fetchedData } = useShelterStats();

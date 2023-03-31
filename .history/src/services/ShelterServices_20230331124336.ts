@@ -87,26 +87,83 @@ export const getShelterCards = (number: number) => {
   return Promise.reject(error);
 }); */
 
-const getRefreshToken = () => localStorage.getItem("refreshToken");
+const REFRESH_ENDPOINT = "/api/token/refresh";
+const LOGIN_ENDPOINT = "/api/login";
 
-export const isTokenExpired = (token: any) => {
+// Download accessToken from localStorage
+const getAccessToken = () => localStorage.getItem("accessToken");
+const setAccessToken = (token: any) => localStorage.setItem("authToken", token);
+const removeAccessToken = () => localStorage.removeItem("accessToken");
+
+// Download refreshToken from localStorage
+const getRefreshToken = () => localStorage.getItem("refreshToken");
+const setRefreshToken = (token: any) =>
+  localStorage.setItem("refreshToken", token);
+const removeRefreshToken = () => localStorage.removeItem("refreshToken");
+
+// Sprawdzenie, czy token nie jest już wygasły
+const isTokenExpired = (token) => {
   const { exp }: { exp: any } = jwt_decode(token);
   const now = Date.now() / 1000;
   console.log("Exp: ", exp, "Now:", now);
   return exp < now;
 };
 
-export const refreshAuthToken = async () => {
+// Funkcja do odświeżania tokena
+const refreshAuthToken = async () => {
   const refreshToken = getRefreshToken();
   if (!refreshToken) {
+    // Brak Refresh Tokena - przekierowanie do strony logowania
     window.location.href = "/login";
     return;
   }
 
   try {
-    refreshAuth();
+    // Wywołanie endpointa do odświeżania tokena
+    const response = await axios.post(REFRESH_ENDPOINT, {
+      refresh_token: refreshToken,
+    });
+    const newToken = response.data.token;
+    const newRefreshToken = response.data.refresh_token;
+
+    // Aktualizacja tokena i Refresh Tokena w localStorage
+    setAuthToken(newToken);
+    setRefreshToken(newRefreshToken);
   } catch (error) {
-    console.error("Failed try to refresh token:", error);
+    console.error("Nie udało się odświeżyć tokenu", error);
+    // Przekierowanie do strony logowania w przypadku niepowodzenia
     window.location.href = "/login";
   }
 };
+
+// Funkcja do logowania
+const login = async (email, password) => {
+  try {
+    // Wywołanie endpointa do logowania
+    const response = await axios.post(LOGIN_ENDPOINT, { email, password });
+    const token = response.data.token;
+    const refreshToken = response.data.refresh_token;
+
+    // Zapisanie tokena i Refresh Tokena w localStorage
+    setAuthToken(token);
+    setRefreshToken(refreshToken);
+  } catch (error) {
+    console.error("Nie udało się zalogować", error);
+  }
+};
+
+// Sprawdzenie stanu autoryzacji przy starcie aplikacji
+const checkAuthStatus = () => {
+  const authToken = getAuthToken();
+  if (!authToken || isTokenExpired(authToken)) {
+    // Token nie istnieje lub jest wygasły - przekierowanie do strony logowania
+    window.location.href = "/login";
+    return;
+  }
+
+  // Uruchomienie interwału do odświeżania tokena
+  setInterval(refreshAuthToken, REFRESH_INTERVAL);
+};
+
+// Wywołanie funkcji do sprawdzenia stanu autoryzacji
+checkAuthStatus();

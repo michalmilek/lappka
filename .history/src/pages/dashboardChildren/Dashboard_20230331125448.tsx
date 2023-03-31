@@ -12,13 +12,19 @@ import Chart from "../../components/Chart";
 import Volunteering from "../../components/Volunteering";
 import AnimalCards from "../../components/AnimalCards";
 import MostPopularAnimals from "../../components/MostPopularAnimals";
+import { isTokenExpired } from "../../services/ShelterServices";
 
 const Dashboard = () => {
   const { data: fetchedData } = useShelterStats();
   const { data: fetchedCards } = useShelterCards(1);
 
   /* const animals3 = fetchedCards?.items.slice(0, 3); */
-  /*   console.log(fetchedCards?.items.slice(0, 3)); */
+  console.log(fetchedCards?.items.slice(0, 3));
+
+  const token = localStorage.getItem("accessToken" || '""');
+  const accessTokenWithoutString = token?.replace(/"/g, "");
+
+  console.log(isTokenExpired(accessTokenWithoutString));
 
   const data = [
     {

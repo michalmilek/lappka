@@ -1,12 +1,12 @@
 import axios from "axios";
 import { refreshAuth } from "./authHeader";
-import jwt_decode from "jwt-decode";
+
 
 const token = localStorage.getItem("accessToken");
 const token2 = token?.replace(/["]/g, "");
 console.log(token2);
 
-/* axios.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -31,7 +31,7 @@ console.log(token2);
 
     return Promise.reject(error);
   }
-); */
+);
 
 export const getShelterStats = () => {
   const response = axios
@@ -68,6 +68,8 @@ export const getShelterCards = (number: number) => {
   return response;
 };
 
+
+
 /* axios.interceptors.response.use(null, function (error) {
   // obsługa błędów
   if (error.response.status === 401) {
@@ -86,27 +88,3 @@ export const getShelterCards = (number: number) => {
   }
   return Promise.reject(error);
 }); */
-
-const getRefreshToken = () => localStorage.getItem("refreshToken");
-
-export const isTokenExpired = (token: any) => {
-  const { exp }: { exp: any } = jwt_decode(token);
-  const now = Date.now() / 1000;
-  console.log("Exp: ", exp, "Now:", now);
-  return exp < now;
-};
-
-export const refreshAuthToken = async () => {
-  const refreshToken = getRefreshToken();
-  if (!refreshToken) {
-    window.location.href = "/login";
-    return;
-  }
-
-  try {
-    refreshAuth();
-  } catch (error) {
-    console.error("Failed try to refresh token:", error);
-    window.location.href = "/login";
-  }
-};

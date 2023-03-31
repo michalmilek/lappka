@@ -87,8 +87,10 @@ export const getShelterCards = (number: number) => {
   return Promise.reject(error);
 }); */
 
+// Download refreshToken from localStorage
 const getRefreshToken = () => localStorage.getItem("refreshToken");
 
+// Checking if token is expired
 export const isTokenExpired = (token: any) => {
   const { exp }: { exp: any } = jwt_decode(token);
   const now = Date.now() / 1000;
@@ -96,9 +98,11 @@ export const isTokenExpired = (token: any) => {
   return exp < now;
 };
 
+// Funkcja do odświeżania tokena
 export const refreshAuthToken = async () => {
   const refreshToken = getRefreshToken();
   if (!refreshToken) {
+    // Brak Refresh Tokena - przekierowanie do strony logowania
     window.location.href = "/login";
     return;
   }

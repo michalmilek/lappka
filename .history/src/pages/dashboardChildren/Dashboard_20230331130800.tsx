@@ -12,8 +12,10 @@ import Chart from "../../components/Chart";
 import Volunteering from "../../components/Volunteering";
 import AnimalCards from "../../components/AnimalCards";
 import MostPopularAnimals from "../../components/MostPopularAnimals";
+import { useTokenRefresh } from "../../hooks/useTokenRefresh";
 
 const Dashboard = () => {
+  useTokenRefresh();
   const { data: fetchedData } = useShelterStats();
   const { data: fetchedCards } = useShelterCards(1);
 

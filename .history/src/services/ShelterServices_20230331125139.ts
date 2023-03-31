@@ -87,8 +87,18 @@ export const getShelterCards = (number: number) => {
   return Promise.reject(error);
 }); */
 
+const REFRESH_ENDPOINT = "/api/token/refresh";
+const LOGIN_ENDPOINT = "/api/login";
+
+// Download accessToken from localStorage
+const getAccessToken = () => localStorage.getItem("accessToken");
+const setAccessToken = (token: any) => localStorage.setItem("authToken", token);
+const removeAccessToken = () => localStorage.removeItem("accessToken");
+
+// Download refreshToken from localStorage
 const getRefreshToken = () => localStorage.getItem("refreshToken");
 
+// Sprawdzenie, czy token nie jest już wygasły
 export const isTokenExpired = (token: any) => {
   const { exp }: { exp: any } = jwt_decode(token);
   const now = Date.now() / 1000;
@@ -96,17 +106,37 @@ export const isTokenExpired = (token: any) => {
   return exp < now;
 };
 
-export const refreshAuthToken = async () => {
+// Funkcja do odświeżania tokena
+const refreshAuthToken = async () => {
   const refreshToken = getRefreshToken();
   if (!refreshToken) {
+    // Brak Refresh Tokena - przekierowanie do strony logowania
     window.location.href = "/login";
     return;
   }
 
   try {
+    // Wywołanie endpointa do odświeżania tokena
     refreshAuth();
   } catch (error) {
-    console.error("Failed try to refresh token:", error);
+    console.error("Nie udało się odświeżyć tokenu", error);
+    // Przekierowanie do strony logowania w przypadku niepowodzenia
     window.location.href = "/login";
   }
 };
+
+// Sprawdzenie stanu autoryzacji przy starcie aplikacji
+const checkAuthStatus = () => {
+  const authToken = getAuthToken();
+  if (!authToken || isTokenExpired(authToken)) {
+    // Token nie istnieje lub jest wygasły - przekierowanie do strony logowania
+    window.location.href = "/login";
+    return;
+  }
+
+  // Uruchomienie interwału do odświeżania tokena
+  setInterval(refreshAuthToken, REFRESH_INTERVAL);
+};
+
+// Wywołanie funkcji do sprawdzenia stanu autoryzacji
+checkAuthStatus();

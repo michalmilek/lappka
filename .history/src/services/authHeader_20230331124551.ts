@@ -6,7 +6,7 @@ export const refreshAuth = () => {
   const refreshToken = JSON.parse(localStorage.getItem("refreshToken") || "");
   const refreshTokenWithoutString = refreshToken.replace(/"/g, "");
 
-    if (!refreshToken || !accessToken) {
+    if (!refreshToken) {
       window.location.href = "/";
       return;
     }
