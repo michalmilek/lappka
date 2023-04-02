@@ -31,8 +31,6 @@ const LoginForm = () => {
     register,
     handleSubmit,
     setError,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -42,8 +40,6 @@ const LoginForm = () => {
     },
     resolver: yupResolver(validationSchema),
   });
-
-  const toggleValue = watch("rememberMe", false);
 
   /* const SignIn = (password: string, email: string) => {
     axios
@@ -95,11 +91,10 @@ const LoginForm = () => {
       />
       <div className="flex justify-between items-center mb-8 w-full">
         <label
-          onClick={() => setValue("rememberMe", !toggleValue)}
+          onClick={() => setCheckBoxInput((prev) => !prev)}
           className="flex select-none items-center gap-2 text-darkGray2 text-sm tracking-veryTight cursor-pointer"
           htmlFor="RememberMe">
           <FormInputCheckbox
-            {...register("rememberMe")}
             className="text-Primary/PR500 ring-0 focus:ring-0 rounded-[4px]"
             type="checkbox"
           />

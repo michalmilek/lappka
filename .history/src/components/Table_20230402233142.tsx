@@ -14,7 +14,7 @@ const Table = () => {
   } = useShelterCards(currentPage);
 
   if (isError) {
-    return <div>{error as any}</div>;
+    return <div>{error}</div>;
   }
 
   if (isLoading) {

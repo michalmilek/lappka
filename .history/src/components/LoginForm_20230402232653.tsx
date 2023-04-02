@@ -95,7 +95,7 @@ const LoginForm = () => {
       />
       <div className="flex justify-between items-center mb-8 w-full">
         <label
-          onClick={() => setValue("rememberMe", !toggleValue)}
+          onChange={() => setValue("rememberMe", !toggleValue)}
           className="flex select-none items-center gap-2 text-darkGray2 text-sm tracking-veryTight cursor-pointer"
           htmlFor="RememberMe">
           <FormInputCheckbox
