@@ -1,7 +1,6 @@
 import { UseFormSetError } from "react-hook-form";
 import { Inputs } from "../components/LoginForm";
 import { AuthInstance } from "./axiosInstances";
-import { useNavigate } from "react-router-dom";
 
 const accessToken = JSON.parse(localStorage.getItem("accessToken") || '""');
 const accessTokenWithoutString = accessToken.replace(/"/g, "");
@@ -49,7 +48,7 @@ export const login = (
           "refreshToken",
           JSON.stringify(response.data.refreshToken)
         );
-        window.location.href = "/dashboard";
+        window.location.reload();
       }
 
       return response.data;

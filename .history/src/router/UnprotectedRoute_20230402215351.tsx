@@ -1,12 +1,14 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import DashboardLayout from "../pages/DashboardLayout";
+import Login from "../pages/Login";
 
 const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("accessToken");
-  if (isAuthenticated) {
-    return <DashboardLayout />;
+
+  if (!isAuthenticated) {
+    return <Outlet />;
   } else {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/dashboard"} />;
   }
 };
 

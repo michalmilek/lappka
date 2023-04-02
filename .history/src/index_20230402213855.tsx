@@ -17,20 +17,13 @@ import AnimalCardsSite from "./pages/dashboardChildren/AnimalCardsSite";
 import { useTokenRefresh } from "./hooks/useTokenRefresh";
 import { isTokenExpired } from "./services/ShelterServices";
 import ProtectedRoute from "./router/ProtectedRoute";
-import UnprotectedRoute from "./router/UnprotectedRoute";
 
 //osobny komponent
 
 const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
-    element: <UnprotectedRoute />,
-    children: [
-      {
-        path: ROUTES.HOME,
-        element: <Login />,
-      },
-    ],
+    element: <Login />,
   },
   {
     path: ROUTES.DASHBOARD,

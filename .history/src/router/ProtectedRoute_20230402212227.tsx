@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Route, RouteProps } from "react-router-dom";
 import DashboardLayout from "../pages/DashboardLayout";
 
 const ProtectedRoute = () => {
