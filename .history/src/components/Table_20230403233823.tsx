@@ -39,14 +39,7 @@ const Table = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("page", currentPage.toString());
     setSearchParams(newSearchParams);
-
-    if (currentPage > totalPages) {
-      goToPage(totalPages);
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set("page", currentPage.toString());
-      setSearchParams(newSearchParams);
-    }
-  }, [currentPage, setSearchParams, searchParams, goToPage, totalPages]);
+  }, [currentPage, setSearchParams, searchParams]);
 
   useEffect(() => {
     const page = searchParams.get("page");
@@ -59,7 +52,20 @@ const Table = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("perPage", currentPerPage.toString());
     setSearchParams(newSearchParams);
-  }, [currentPerPage, setSearchParams, searchParams]);
+    if (currentPage > totalPages) {
+      goToPage(totalPages);
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set("page", currentPage.toString());
+      setSearchParams(newSearchParams);
+    }
+  }, [
+    currentPerPage,
+    setSearchParams,
+    searchParams,
+    currentPage,
+    /* goToPage, */
+    totalPages,
+  ]);
 
   let allPages = [];
   for (let i = 1; i <= totalPages; i++) {
