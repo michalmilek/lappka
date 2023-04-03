@@ -4,8 +4,16 @@ import { isTokenExpired } from "../services/ShelterServices";
 /* import DashboardLayout from "../pages/DashboardLayout";
 import Login from "../pages/Login"; */
 
-const UnprotectedRoute = () => {
+const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+  const rfrToken = refreshToken?.replace(/["]/g, "");
+  const isRefreshTokenExpired = isTokenExpired(rfrToken);
+
+  if (isRefreshTokenExpired) {
+    logout();
+    return <Navigate to={"/"} />;
+  }
 
   if (!isAuthenticated) {
     return <Outlet />;
@@ -14,4 +22,4 @@ const UnprotectedRoute = () => {
   }
 };
 
-export default UnprotectedRoute;
+export default ProtectedRoute;

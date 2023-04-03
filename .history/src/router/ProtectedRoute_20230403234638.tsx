@@ -7,14 +7,11 @@ const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
   const rfrToken = refreshToken?.replace(/["]/g, "");
-  console.log(rfrToken);
+  const isRefreshTokenExpired = isTokenExpired(rfrToken);
 
-  if (refreshToken) {
-    const isRefreshTokenExpired = isTokenExpired(rfrToken);
-    if (isRefreshTokenExpired) {
-      logout();
-      return <Navigate to={"/"} />;
-    }
+  if (isRefreshTokenExpired) {
+    logout();
+    return <Navigate to={"/"} />;
   }
 
   if (isAuthenticated) {
