@@ -26,7 +26,6 @@ const Table = () => {
     error,
   } = useShelterCards(currentPage, currentPerPage);
 
-  handleAllPages(animals?.totalPages);
   /*   useEffect(() => {
     if (isSuccess) {
       handleAllPages(animals?.totalPages);
@@ -62,9 +61,9 @@ const Table = () => {
     currentPerPage,
     setSearchParams,
     searchParams,
-    currentPage,
-    goToPage,
-    totalPages,
+    //currentPage,
+    /*   goToPage,
+    totalPages, */
   ]);
 
   let allPages = [];
@@ -79,6 +78,8 @@ const Table = () => {
   if (isLoading || isFetching) {
     return <div>Loading...</div>;
   }
+
+  handleAllPages(animals?.totalPages);
 
   return (
     <div className="w-full flex flex-col justify-end gap-3">

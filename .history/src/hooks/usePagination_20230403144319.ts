@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const usePagination = (initialTotalPages: number = 0) => {
-  const [totalPages, setTotalPages] = useState<number>(initialTotalPages);
+const usePagination = (_initialTotalPages: number = 0) => {
+  const [totalPages, _setTotalPages] = useState<number>(initialTotalPages);
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(() => {
     const page = searchParams.get("page");
@@ -49,15 +49,9 @@ const usePagination = (initialTotalPages: number = 0) => {
     },
     [totalPages]
   );
-  const handleAllPages = useCallback(
-    (number: number) => {
-      if (number !== totalPages) {
-        setTotalPages(number);
-      }
-      //number == currentpage
-    },
-    [totalPages]
-  );
+  const handleAllPages = useCallback((number: number) => {
+    setTotalPages(number);
+  }, []);
 
   const handlePerPage = useCallback((number: number) => {
     setCurrentPerPage(number);

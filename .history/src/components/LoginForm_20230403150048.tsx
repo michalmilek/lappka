@@ -122,6 +122,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
-//dynamiczne generowanie formularzy

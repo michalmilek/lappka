@@ -49,15 +49,9 @@ const usePagination = (initialTotalPages: number = 0) => {
     },
     [totalPages]
   );
-  const handleAllPages = useCallback(
-    (number: number) => {
-      if (number !== totalPages) {
-        setTotalPages(number);
-      }
-      //number == currentpage
-    },
-    [totalPages]
-  );
+  const handleAllPages = useCallback((number: number) => {
+    setTotalPages(number);
+  }, []);
 
   const handlePerPage = useCallback((number: number) => {
     setCurrentPerPage(number);

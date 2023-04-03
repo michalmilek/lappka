@@ -11,11 +11,7 @@ const FormInput = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
 
   return (
     <div className="flex flex-col gap-1 items-start justify-center mb-4 w-full">
-      <label
-        htmlFor={rest.id}
-        className="text-darkGray2 text-[13px] font-medium">
-        {label}
-      </label>
+      <label className="text-darkGray2 text-[13px] font-medium">{label}</label>
       <input
         {...rest}
         ref={ref}

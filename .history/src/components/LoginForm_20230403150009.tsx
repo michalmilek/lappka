@@ -80,7 +80,6 @@ const LoginForm = () => {
         {errors.root?.message}
       </p>
       <FormInput
-        id="email"
         label="Email"
         type={"text"}
         placeholder="Adres email"
@@ -122,6 +121,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
-//dynamiczne generowanie formularzy

@@ -26,7 +26,6 @@ const Table = () => {
     error,
   } = useShelterCards(currentPage, currentPerPage);
 
-  handleAllPages(animals?.totalPages);
   /*   useEffect(() => {
     if (isSuccess) {
       handleAllPages(animals?.totalPages);
@@ -48,16 +47,16 @@ const Table = () => {
     }
   }, [searchParams, goToPage]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("perPage", currentPerPage.toString());
     setSearchParams(newSearchParams);
-    if (currentPage > totalPages) {
+    /*     if (currentPage > totalPages) {
       goToPage(totalPages);
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.set("page", currentPage.toString());
       setSearchParams(newSearchParams);
-    }
+    } */
   }, [
     currentPerPage,
     setSearchParams,
@@ -65,7 +64,7 @@ const Table = () => {
     currentPage,
     goToPage,
     totalPages,
-  ]);
+  ]); */
 
   let allPages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -79,6 +78,8 @@ const Table = () => {
   if (isLoading || isFetching) {
     return <div>Loading...</div>;
   }
+
+  handleAllPages(animals?.totalPages);
 
   return (
     <div className="w-full flex flex-col justify-end gap-3">
