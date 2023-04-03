@@ -35,10 +35,8 @@ const Table = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("page", currentPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPage, setSearchParams, searchParams]);
+    setSearchParams({ page: currentPage.toString() });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     const page = searchParams.get("page");

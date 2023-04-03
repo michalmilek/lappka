@@ -6,7 +6,6 @@ import { ReactComponent as MagnifyingLoopIcon } from "../../components/Card/icon
 import { ReactComponent as UserIcon } from "../../components/Card/icons/User.svg";
 import Card from "../../components/Card/Card";
 import AnimalsList from "../../components/AnimalsList";
-import useShelterCards from "../../hooks/useShelterCards";
 
 const AnimalCardsSite = () => {
   const { data: fetchedData, isLoading, isError, error } = useShelterStats();

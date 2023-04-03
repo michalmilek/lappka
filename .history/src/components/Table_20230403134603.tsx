@@ -35,10 +35,8 @@ const Table = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("page", currentPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPage, setSearchParams, searchParams]);
+    setSearchParams({ page: currentPage.toString() });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     const page = searchParams.get("page");
@@ -48,10 +46,8 @@ const Table = () => {
   }, [searchParams, goToPage]);
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("perPage", currentPerPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPerPage, setSearchParams, searchParams]);
+    console.log(currentPerPage);
+  }, [currentPerPage]);
 
   /*   const handleSearchParamsChange = (newSearchParams: any) => {
     setSearchParams((prevSearchParams) => {
@@ -62,7 +58,7 @@ const Table = () => {
     });
   }; */
 
-  //const perPage = searchParams.get("perPage");
+  const perPage = searchParams.get("perPage");
 
   let allPages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -139,6 +135,7 @@ const Table = () => {
           <select
             onChange={(e) => {
               handlePerPage(+e.target.value);
+              setSearchParams({ perPage: e.target.value });
             }}
             name="perPage"
             id="">

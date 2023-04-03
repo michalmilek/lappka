@@ -46,11 +46,11 @@ export const getShelterStats = () => {
 
   return response;
 };
-export const getShelterCards = (number: number, pageSize: number) => {
+export const getShelterCards = (number: number, pageSize?: number) => {
   const response = PetInstance.get(
     `/shelters/cards?pageNumber=${number ? number : 1}&pageSize=${
       pageSize ? pageSize : 10
-    }`,
+    }'`,
     {
       headers: {
         Authorization: `Bearer ${token2}`,

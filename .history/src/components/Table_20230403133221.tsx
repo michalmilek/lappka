@@ -13,7 +13,7 @@ const Table = () => {
     goToPage,
     totalPages,
     handleAllPages,
-    currentPerPage,
+    currentPerSize,
     handlePerPage,
   } = usePagination();
 
@@ -24,7 +24,7 @@ const Table = () => {
     isLoading,
     isFetching,
     error,
-  } = useShelterCards(currentPage, currentPerPage);
+  } = useShelterCards(currentPage, currentPerSize);
 
   useEffect(() => {
     if (isSuccess) {
@@ -35,10 +35,8 @@ const Table = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("page", currentPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPage, setSearchParams, searchParams]);
+    setSearchParams({ page: currentPage.toString() });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     const page = searchParams.get("page");
@@ -48,19 +46,8 @@ const Table = () => {
   }, [searchParams, goToPage]);
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("perPage", currentPerPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPerPage, setSearchParams, searchParams]);
-
-  /*   const handleSearchParamsChange = (newSearchParams: any) => {
-    setSearchParams((prevSearchParams) => {
-      return new URLSearchParams({
-        ...Object.fromEntries(prevSearchParams.entries()),
-        ...Object.fromEntries(newSearchParams.entries()),
-      });
-    });
-  }; */
+    console.log(currentPerSize);
+  }, [currentPerSize]);
 
   //const perPage = searchParams.get("perPage");
 
@@ -133,24 +120,21 @@ const Table = () => {
         </tbody>
       </table>
       <div className="px-5 w-full flex justify-between items-center">
-        <div className="flex items-center justify-center gap-4">
-          <p className="font-bold">Animals per size: </p>
-
-          <select
-            onChange={(e) => {
-              handlePerPage(+e.target.value);
-            }}
-            name="perPage"
-            id="">
-            <option value="5">5</option>
-            <option
-              selected
-              value="10">
-              10
-            </option>
-            <option value="12">12</option>
-          </select>
-        </div>
+        <select
+          onChange={(e) => {
+            handlePerPage(+e.target.value);
+            setSearchParams({ perPage: e.target.value });
+          }}
+          name="perPage"
+          id="">
+          <option value="5">5</option>
+          <option
+            selected
+            value="10">
+            10
+          </option>
+          <option value="12">12</option>
+        </select>
         <div className="flex justify-center items-center gap-3">
           <AiOutlineArrowLeft
             onClick={() => prevPage()}

@@ -13,7 +13,7 @@ const Table = () => {
     goToPage,
     totalPages,
     handleAllPages,
-    currentPerPage,
+    currentPerSize,
     handlePerPage,
   } = usePagination();
 
@@ -24,7 +24,7 @@ const Table = () => {
     isLoading,
     isFetching,
     error,
-  } = useShelterCards(currentPage, currentPerPage);
+  } = useShelterCards(currentPage, currentPerSize);
 
   useEffect(() => {
     if (isSuccess) {
@@ -35,10 +35,8 @@ const Table = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("page", currentPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPage, setSearchParams, searchParams]);
+    setSearchParams({ page: currentPage.toString() });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     const page = searchParams.get("page");
@@ -48,21 +46,19 @@ const Table = () => {
   }, [searchParams, goToPage]);
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("perPage", currentPerPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPerPage, setSearchParams, searchParams]);
+    console.log(currentPerSize);
+  }, [currentPerSize]);
 
-  /*   const handleSearchParamsChange = (newSearchParams: any) => {
+  const handleSearchParamsChange = (newSearchParams: any) => {
     setSearchParams((prevSearchParams) => {
       return new URLSearchParams({
         ...Object.fromEntries(prevSearchParams.entries()),
         ...Object.fromEntries(newSearchParams.entries()),
       });
     });
-  }; */
+  };
 
-  //const perPage = searchParams.get("perPage");
+  const perPage = searchParams.get("perPage");
 
   let allPages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -139,6 +135,7 @@ const Table = () => {
           <select
             onChange={(e) => {
               handlePerPage(+e.target.value);
+              setSearchParams({ perPage: e.target.value });
             }}
             name="perPage"
             id="">

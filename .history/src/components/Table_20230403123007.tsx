@@ -13,8 +13,6 @@ const Table = () => {
     goToPage,
     totalPages,
     handleAllPages,
-    currentPerPage,
-    handlePerPage,
   } = usePagination();
 
   const {
@@ -24,7 +22,7 @@ const Table = () => {
     isLoading,
     isFetching,
     error,
-  } = useShelterCards(currentPage, currentPerPage);
+  } = useShelterCards(currentPage);
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,35 +32,9 @@ const Table = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("page", currentPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPage, setSearchParams, searchParams]);
-
-  useEffect(() => {
-    const page = searchParams.get("page");
-    if (page) {
-      goToPage(+page);
-    }
-  }, [searchParams, goToPage]);
-
-  useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("perPage", currentPerPage.toString());
-    setSearchParams(newSearchParams);
-  }, [currentPerPage, setSearchParams, searchParams]);
-
-  /*   const handleSearchParamsChange = (newSearchParams: any) => {
-    setSearchParams((prevSearchParams) => {
-      return new URLSearchParams({
-        ...Object.fromEntries(prevSearchParams.entries()),
-        ...Object.fromEntries(newSearchParams.entries()),
-      });
-    });
-  }; */
-
-  //const perPage = searchParams.get("perPage");
+  const page = searchParams.get("currentPage");
+  const perPage = searchParams.get("perPage");
+  console.log(page);
 
   let allPages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -132,48 +104,26 @@ const Table = () => {
             ))}
         </tbody>
       </table>
-      <div className="px-5 w-full flex justify-between items-center">
-        <div className="flex items-center justify-center gap-4">
-          <p className="font-bold">Animals per size: </p>
-
-          <select
-            onChange={(e) => {
-              handlePerPage(+e.target.value);
-            }}
-            name="perPage"
-            id="">
-            <option value="5">5</option>
-            <option
-              selected
-              value="10">
-              10
-            </option>
-            <option value="12">12</option>
-          </select>
-        </div>
-        <div className="flex justify-center items-center gap-3">
-          <AiOutlineArrowLeft
-            onClick={() => prevPage()}
-            className="arrow"
-          />
-          {allPages.map((pageNumber: number) => (
-            <span
-              key={pageNumber}
-              className={`arrow ${pageNumber === currentPage && "font-bold"}`}
-              onClick={() => {
-                goToPage(pageNumber);
-                //setSearchParams({ page: pageNumber.toString() });
-              }}>
-              {pageNumber}
-            </span>
-          ))}
-          <AiOutlineArrowRight
+      <div className="flex pl-[85%] w-full justify-center items-center gap-3">
+        <AiOutlineArrowLeft
+          onClick={() => prevPage()}
+          className="arrow"
+        />
+        {allPages.map((pageNumber: number) => (
+          <span
+            key={pageNumber}
+            className={`arrow ${pageNumber === currentPage && "font-bold"}`}
             onClick={() => {
-              nextPage();
-            }}
-            className="arrow"
-          />
-        </div>
+              goToPage(pageNumber);
+              setSearchParams({ page: pageNumber.toString() });
+            }}>
+            {pageNumber}
+          </span>
+        ))}
+        <AiOutlineArrowRight
+          onClick={() => nextPage()}
+          className="arrow"
+        />
       </div>
     </div>
   );

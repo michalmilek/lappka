@@ -10,6 +10,7 @@ import useShelterCards from "../../hooks/useShelterCards";
 
 const AnimalCardsSite = () => {
   const { data: fetchedData, isLoading, isError, error } = useShelterStats();
+  const { data: fetchedDataAnimals } = useShelterCards(1);
 
   const data = [
     {
