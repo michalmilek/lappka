@@ -10,8 +10,7 @@ import { AnimatePresence, motion as m } from "framer-motion";
 import { logout } from "../../services/authService";
 import { NavLink } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
-import { sitemap1, sitemap2 } from "./sitemap";
-import LinkItem from "./LinkItem";
+import { sitemap1 } from "./sitemap";
 
 const UserMenu = ["test1", "test2", "test3", "test4"];
 
@@ -30,26 +29,65 @@ const Sidebar = () => {
             alt="Logo"
           />
 
-          <ul className="flex flex-col items-start justify-center gap-2 w-full">
+          <ul className="flex flex-col items-start justify-center gap-1 w-full">
             {sitemap1.map((item) => (
-              <LinkItem
-                item={item}
-                dropdown={item.children ? true : false}
-              />
+              <li className="listLink">
+                <NavLink
+                  to={item.route ? item.route : "/"}
+                  end>
+                  {item.icon}
+                  {item.title}
+                </NavLink>
+                {item.children && (
+                  <ul className="flex flex-col items-center justify-center gap-2">
+                    {item.children.map((childrenItem) => (
+                      <li className="listLink">
+                        <NavLink
+                          to={"/"}
+                          end>
+                          {childrenItem.icon}
+                          {childrenItem.title}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
             ))}
+            <li className="listLink">
+              <NavLink
+                className={`listLink`}
+                to={ROUTES.DASHBOARD}
+                end>
+                <HomeIcon /> Dashboard
+              </NavLink>
+            </li>
+            <li className="listLink relative">
+              <MessageIcon /> Wiadomości
+              <span className="absolute text-sm right-2 bg-orange flex justify-center items-center top-[50%] translate-y-[-50%] rounded-xl p-[2px] px-[6px] text-white">
+                56
+              </span>
+            </li>
+            <li className="listLink">
+              <NavLink
+                to={ROUTES.ANIMALSCARDS}
+                className="listLink">
+                <AnimalsCards /> Karty zwierząt
+              </NavLink>
+            </li>
+            <li className="listLink">
+              <HeartIcon /> Wolontariat
+            </li>
           </ul>
 
           <div className="flex flex-col items-start justify-center gap-1 w-full">
             <p className="uppercase text-[12px] text-midGray3 font-semibold mb-0">
-              {sitemap2.title}
+              Organizacja
             </p>
-            <ul className="w-full flex flex-col gap-3">
-              {sitemap2.elements.map((item) => (
-                <LinkItem
-                  item={item}
-                  dropdown={false}
-                />
-              ))}
+            <ul className="w-full flex flex-col">
+              <li className="listLink">
+                <EmployeesIcon /> Pracownicy
+              </li>
             </ul>
           </div>
         </div>

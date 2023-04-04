@@ -45,10 +45,10 @@ const Sidebar = () => {
             </p>
             <ul className="w-full flex flex-col gap-3">
               {sitemap2.elements.map((item) => (
-                <LinkItem
-                  item={item}
-                  dropdown={false}
-                />
+                <li className="listLink">
+                  {item.icon}
+                  {item.title}
+                </li>
               ))}
             </ul>
           </div>

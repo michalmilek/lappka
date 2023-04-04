@@ -37,7 +37,7 @@
     }
 
     .active{
-        @apply bg-bgGreen !text-Primary/PR700 py-2
+        @apply bg-black !text-Primary/PR700 !py-2
     }
 }
 

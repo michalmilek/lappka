@@ -32,10 +32,7 @@ const Sidebar = () => {
 
           <ul className="flex flex-col items-start justify-center gap-2 w-full">
             {sitemap1.map((item) => (
-              <LinkItem
-                item={item}
-                dropdown={item.children ? true : false}
-              />
+              <LinkItem item={item} />
             ))}
           </ul>
 
@@ -45,10 +42,10 @@ const Sidebar = () => {
             </p>
             <ul className="w-full flex flex-col gap-3">
               {sitemap2.elements.map((item) => (
-                <LinkItem
-                  item={item}
-                  dropdown={false}
-                />
+                <li className="listLink">
+                  {item.icon}
+                  {item.title}
+                </li>
               ))}
             </ul>
           </div>
