@@ -32,7 +32,7 @@ const Sidebar = () => {
             <li className="listLink">
               <NavLink
                 className={`listLink`}
-                to={ROUTES.DASHBOARD} end>
+                to={ROUTES.ADMIN}>
                 <HomeIcon /> Dashboard
               </NavLink>
             </li>

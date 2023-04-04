@@ -32,7 +32,7 @@ const Sidebar = () => {
             <li className="listLink">
               <NavLink
                 className={`listLink`}
-                to={ROUTES.DASHBOARD} end>
+                to={ROUTES.DASHBOARD}>
                 <HomeIcon /> Dashboard
               </NavLink>
             </li>
@@ -42,13 +42,13 @@ const Sidebar = () => {
                 56
               </span>
             </li>
-              <li className="listLink">
             <NavLink
               to={ROUTES.ANIMALSCARDS}
-              className="listLink">
+              className="getFromParent flex w-full">
+              <li className="listLink">
                 <AnimalsCards /> Karty zwierząt
-            </NavLink>
               </li>
+            </NavLink>
             <li className="listLink">
               <HeartIcon /> Wolontariat
             </li>

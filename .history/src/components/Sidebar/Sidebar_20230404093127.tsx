@@ -31,8 +31,8 @@ const Sidebar = () => {
           <ul className="flex flex-col items-start justify-center gap-1 w-full">
             <li className="listLink">
               <NavLink
-                className={`listLink`}
-                to={ROUTES.DASHBOARD} end>
+                className={`flex w-full`}
+                to={ROUTES.DASHBOARD}>
                 <HomeIcon /> Dashboard
               </NavLink>
             </li>
@@ -42,13 +42,13 @@ const Sidebar = () => {
                 56
               </span>
             </li>
-              <li className="listLink">
             <NavLink
               to={ROUTES.ANIMALSCARDS}
-              className="listLink">
+              className="getFromParent flex w-full">
+              <li className="listLink">
                 <AnimalsCards /> Karty zwierząt
-            </NavLink>
               </li>
+            </NavLink>
             <li className="listLink">
               <HeartIcon /> Wolontariat
             </li>

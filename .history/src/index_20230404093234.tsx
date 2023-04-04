@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
+        path: ROUTES.ANIMALSCARDS + "/:pageId",
+        element: <AnimalCardsSite />,
+      },
+      {
         path: ROUTES.ANIMALSCARDS,
         element: <AnimalCardsSite />,
       },

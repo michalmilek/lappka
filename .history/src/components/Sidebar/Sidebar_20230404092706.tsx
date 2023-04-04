@@ -29,26 +29,26 @@ const Sidebar = () => {
           />
 
           <ul className="flex flex-col items-start justify-center gap-1 w-full">
-            <li className="listLink">
-              <NavLink
-                className={`listLink`}
-                to={ROUTES.DASHBOARD} end>
+            <NavLink
+              className={"getFromParent flex w-full"}
+              to={ROUTES.DASHBOARD}>
+              <li className="listLink">
                 <HomeIcon /> Dashboard
-              </NavLink>
-            </li>
+              </li>
+            </NavLink>
             <li className="listLink relative">
               <MessageIcon /> Wiadomości
               <span className="absolute text-sm right-2 bg-orange flex justify-center items-center top-[50%] translate-y-[-50%] rounded-xl p-[2px] px-[6px] text-white">
                 56
               </span>
             </li>
-              <li className="listLink">
             <NavLink
               to={ROUTES.ANIMALSCARDS}
-              className="listLink">
+              className="getFromParent flex w-full">
+              <li className="listLink">
                 <AnimalsCards /> Karty zwierząt
-            </NavLink>
               </li>
+            </NavLink>
             <li className="listLink">
               <HeartIcon /> Wolontariat
             </li>
