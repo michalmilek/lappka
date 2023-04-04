@@ -15,7 +15,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AnimalCardsSite from "./pages/dashboardChildren/AnimalCardsSite";
 import ProtectedRoute from "./router/ProtectedRoute";
 import UnprotectedRoute from "./router/UnprotectedRoute";
-import TestSite from "./pages/TestSite";
+import TestSite from "./pages/testSite";
 
 //osobny komponent
 
