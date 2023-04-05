@@ -57,12 +57,12 @@ function DynamicForm<T, K extends string>({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("test");
     try {
-      await validationSchema.validate(values, {
+      const response = await validationSchema.validate(values, {
         abortEarly: false,
       });
       onSubmit(values);
+      console.log(response);
     } catch (error: any) {
       const validationErrors: any = {};
       error.inner.forEach((err: any) => {

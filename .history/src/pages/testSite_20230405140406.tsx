@@ -36,13 +36,11 @@ const TestSite = () => {
     title: "TEST",
     initialValues: {
       email: "test",
-      password: "false",
-      rememberMe: false,
+      password: "test",
+      rememberMe: true,
     },
     validationSchema: validationSchema,
   };
-
-  //interface do środka, hook customowy z logiką w środku, tylko wyświetlanie w componencie
 
   return (
     <div>

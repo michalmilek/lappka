@@ -42,8 +42,6 @@ const TestSite = () => {
     validationSchema: validationSchema,
   };
 
-  //interface do środka, hook customowy z logiką w środku, tylko wyświetlanie w componencie
-
   return (
     <div>
       {/*       <DynamicForm

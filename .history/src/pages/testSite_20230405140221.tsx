@@ -17,9 +17,7 @@ import DynamicForm2, { Props } from "../components/DynamicForm/DynamicForm2";
 const TestSite = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(5, "Minimum required length is 5"),
+    password: Yup.string().required("Password is required").min(5, "Minimum required length is 5"),,
   });
 
   const data: Props<
@@ -36,13 +34,11 @@ const TestSite = () => {
     title: "TEST",
     initialValues: {
       email: "test",
-      password: "false",
+      password: "test",
       rememberMe: false,
     },
     validationSchema: validationSchema,
   };
-
-  //interface do środka, hook customowy z logiką w środku, tylko wyświetlanie w componencie
 
   return (
     <div>

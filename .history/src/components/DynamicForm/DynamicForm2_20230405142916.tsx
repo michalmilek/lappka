@@ -59,10 +59,11 @@ function DynamicForm<T, K extends string>({
 
     console.log("test");
     try {
-      await validationSchema.validate(values, {
+      const response = await validationSchema.validate(values, {
         abortEarly: false,
       });
       onSubmit(values);
+      console.log("test", response);
     } catch (error: any) {
       const validationErrors: any = {};
       error.inner.forEach((err: any) => {

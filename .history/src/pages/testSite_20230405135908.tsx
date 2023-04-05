@@ -14,35 +14,30 @@ import DynamicForm2, { Props } from "../components/DynamicForm/DynamicForm2";
   title: string;
 } */
 
+const data: Props<
+  string | boolean | null,
+  "email" | "password" | "rememberMe"
+> = {
+  fields: [
+    { name: "email", label: "email", type: "text", required: true },
+    { name: "password", label: "password", type: "password", required: true },
+
+    { name: "rememberMe", label: "rememberMe", type: "checkbox" },
+  ],
+  onSubmit: () => console.log(data),
+  title: "TEST",
+  initialValues: {
+    email: "test",
+    password: "test",
+    rememberMe: false,
+  },
+};
+
 const TestSite = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(5, "Minimum required length is 5"),
+    password: Yup.string().required("Password is required"),
   });
-
-  const data: Props<
-    string | boolean | null,
-    "email" | "password" | "rememberMe"
-  > = {
-    fields: [
-      { name: "email", label: "email", type: "text", required: true },
-      { name: "password", label: "password", type: "password", required: true },
-
-      { name: "rememberMe", label: "rememberMe", type: "checkbox" },
-    ],
-    onSubmit: () => console.log(data),
-    title: "TEST",
-    initialValues: {
-      email: "test",
-      password: "false",
-      rememberMe: false,
-    },
-    validationSchema: validationSchema,
-  };
-
-  //interface do środka, hook customowy z logiką w środku, tylko wyświetlanie w componencie
 
   return (
     <div>

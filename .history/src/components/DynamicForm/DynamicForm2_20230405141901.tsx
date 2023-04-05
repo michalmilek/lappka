@@ -29,6 +29,20 @@ export type InputType =
   | "date"
   | "checkbox";
 
+/*   validationSchema: Yup.ObjectSchema<
+Record<string, string>,
+Yup.AnyObject,
+Record<string, string>,
+""
+>; */
+
+/* const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(5, "Minimum required length is 5"),
+}); */
+
 function DynamicForm<T, K extends string>({
   fields,
   onSubmit,
@@ -47,6 +61,14 @@ function DynamicForm<T, K extends string>({
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = event.target;
+    /*     let isChecked: boolean = false;
+    if (
+      event.target.type === "checkbox" &&
+      event.target instanceof HTMLInputElement
+    ) {
+      let { checked } = event.target;
+      return (isChecked = checked);
+    } */
     const newValue =
       type === "checkbox" && event.target instanceof HTMLInputElement
         ? event.target.checked
@@ -57,11 +79,8 @@ function DynamicForm<T, K extends string>({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("test");
     try {
-      await validationSchema.validate(values, {
-        abortEarly: false,
-      });
+      await validationSchema.validate(values, { abortEarly: false });
       onSubmit(values);
     } catch (error: any) {
       const validationErrors: any = {};

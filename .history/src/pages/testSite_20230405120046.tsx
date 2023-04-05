@@ -14,35 +14,34 @@ import DynamicForm2, { Props } from "../components/DynamicForm/DynamicForm2";
   title: string;
 } */
 
+const data: Props<
+  string | boolean | null | undefined,
+  "email" | "password" | "rememberMe"
+> = {
+  fields: [
+    { name: "email", label: "email", type: "text", required: true },
+    { name: "password", label: "password", type: "password", required: true },
+
+    { name: "rememberMe", label: "rememberMe", type: "checkbox" },
+  ],
+  onSubmit: () => console.log(data),
+  title: "TEST",
+  initialValues: {
+    email: "test@example.com",
+    password: "",
+    rememberMe: true,
+  },
+};
+
 const TestSite = () => {
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
+  /*   const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
       .required("Password is required")
-      .min(5, "Minimum required length is 5"),
-  });
-
-  const data: Props<
-    string | boolean | null,
-    "email" | "password" | "rememberMe"
-  > = {
-    fields: [
-      { name: "email", label: "email", type: "text", required: true },
-      { name: "password", label: "password", type: "password", required: true },
-
-      { name: "rememberMe", label: "rememberMe", type: "checkbox" },
-    ],
-    onSubmit: () => console.log(data),
-    title: "TEST",
-    initialValues: {
-      email: "test",
-      password: "false",
-      rememberMe: false,
-    },
-    validationSchema: validationSchema,
-  };
-
-  //interface do środka, hook customowy z logiką w środku, tylko wyświetlanie w componencie
+      .min(5, "Password should have min 5 letters."),
+  }); */
 
   return (
     <div>
@@ -57,7 +56,6 @@ const TestSite = () => {
         onSubmit={data.onSubmit}
         title={data.title}
         initialValues={data.initialValues}
-        validationSchema={validationSchema}
       />
     </div>
   );

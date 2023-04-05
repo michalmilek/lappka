@@ -1,40 +1,31 @@
 import { useState } from "react";
 import * as Yup from "yup";
 
-export type Props<T, K extends string> = {
+type Props<T, K extends string> = {
   fields: Field<K>[];
   onSubmit: (values: Record<K, T>) => void;
   title?: string;
   initialValues?: Record<K, T>;
-  validationSchema: Yup.ObjectSchema<
-    Record<string, string>,
-    Yup.AnyObject,
-    Record<string, undefined>,
-    ""
-  >;
 };
 
-export type Field<K extends string> = {
+type Field<K extends string> = {
   name: K;
   label: string;
   type: InputType;
   required?: boolean;
+  //options?: { value: T; label: string }[];
 };
 
-export type InputType =
-  | "text"
-  | "email"
-  | "password"
-  | "number"
-  | "date"
-  | "checkbox";
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
 
 function DynamicForm<T, K extends string>({
   fields,
   onSubmit,
   title,
   initialValues,
-  validationSchema,
 }: Props<T, K>) {
   const [values, setValues] = useState<Record<K, T>>(
     initialValues || ({} as Record<K, T>)
@@ -47,30 +38,34 @@ function DynamicForm<T, K extends string>({
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = event.target;
-    const newValue =
-      type === "checkbox" && event.target instanceof HTMLInputElement
-        ? event.target.checked
-        : value;
+    let isChecked;
+    if (
+      event.target.type === "checkbox" &&
+      event.target instanceof HTMLInputElement
+    ) {
+      let { checked } = event.target;
+      return (isChecked = checked);
+    }
+    const newValue = type === "checkbox" ? isChecked : value;
     setValues((prevValues) => ({ ...prevValues, [name]: newValue }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("test");
     try {
-      await validationSchema.validate(values, {
-        abortEarly: false,
-      });
+      await validationSchema.validate(values, { abortEarly: false });
       onSubmit(values);
-    } catch (error: any) {
-      const validationErrors: any = {};
-      error.inner.forEach((err: any) => {
-        if (err.path && typeof err.path === "string") {
-          validationErrors[err.path] = err.message;
-        }
-      });
-      setErrors(validationErrors);
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const validationErrors: Record<K, string> | {} = {};
+        err.inner.forEach((error) => {
+          if (error.path) {
+            validationErrors[error.path as keyof K] = error.message;
+          }
+        });
+        setErrors(validationErrors);
+      }
     }
   };
 
@@ -115,3 +110,11 @@ function DynamicForm<T, K extends string>({
 }
 
 export default DynamicForm;
+
+export type InputType =
+  | "text"
+  | "email"
+  | "password"
+  | "number"
+  | "date"
+  | "checkbox";

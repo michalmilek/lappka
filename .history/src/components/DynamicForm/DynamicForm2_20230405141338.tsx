@@ -7,7 +7,7 @@ export type Props<T, K extends string> = {
   title?: string;
   initialValues?: Record<K, T>;
   validationSchema: Yup.ObjectSchema<
-    Record<string, string>,
+    Record<string, T>,
     Yup.AnyObject,
     Record<string, undefined>,
     ""
@@ -29,6 +29,20 @@ export type InputType =
   | "date"
   | "checkbox";
 
+/*   validationSchema: Yup.ObjectSchema<
+Record<string, string>,
+Yup.AnyObject,
+Record<string, string>,
+""
+>; */
+
+/* const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(5, "Minimum required length is 5"),
+}); */
+
 function DynamicForm<T, K extends string>({
   fields,
   onSubmit,
@@ -46,22 +60,24 @@ function DynamicForm<T, K extends string>({
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, type } = event.target;
-    const newValue =
-      type === "checkbox" && event.target instanceof HTMLInputElement
-        ? event.target.checked
-        : value;
+    const { name, value, type, checked } = event.target;
+    /*     let isChecked: boolean = false;
+    if (
+      event.target.type === "checkbox" &&
+      event.target instanceof HTMLInputElement
+    ) {
+      let { checked } = event.target;
+      return (isChecked = checked);
+    } */
+    const newValue = type === "checkbox" ? checked : value;
     setValues((prevValues) => ({ ...prevValues, [name]: newValue }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("test");
     try {
-      await validationSchema.validate(values, {
-        abortEarly: false,
-      });
+      await validationSchema.validate(values, { abortEarly: false });
       onSubmit(values);
     } catch (error: any) {
       const validationErrors: any = {};
