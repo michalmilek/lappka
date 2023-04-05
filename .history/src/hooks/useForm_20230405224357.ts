@@ -12,7 +12,7 @@ export function useForm<T>(initialValues: T) {
     const { name, value, type } = event.target;
     const newValue =
       type === "checkbox" && event.target instanceof HTMLInputElement
-        ? (event.target.checked as boolean)
+        ? (event.target.checked as unknown as T[K])
         : (value as unknown as T[K]);
     setValues((prevValues) => ({ ...prevValues, [name]: newValue }));
   }
