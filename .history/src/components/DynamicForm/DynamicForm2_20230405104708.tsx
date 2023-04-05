@@ -30,7 +30,6 @@ const DynamicForm = <T extends string | number | boolean>({
 }: Props<T>) => {
   const [formData, setFormData] = useState<Record<string, T>>(initialValues);
   //initial values
-  //custom hook
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;

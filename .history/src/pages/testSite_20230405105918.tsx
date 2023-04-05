@@ -23,7 +23,7 @@ const data: Props<string | number | boolean> = {
   ],
   onSubmit: () => console.log(data),
   title: "TEST",
-  initialValues: { email: "test@example.com", x: "TEST" },
+  initialValues: { email: "test@example.com" },
 };
 
 const TestSite = () => {

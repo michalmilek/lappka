@@ -14,7 +14,7 @@ import DynamicForm2, { Props } from "../components/DynamicForm/DynamicForm2";
   title: string;
 } */
 
-const data: Props<string | number | boolean> = {
+const data: Props = {
   fields: [
     { name: "email", label: "email", type: "text", required: true },
     { name: "password", label: "password", type: "password", required: true },
@@ -23,7 +23,7 @@ const data: Props<string | number | boolean> = {
   ],
   onSubmit: () => console.log(data),
   title: "TEST",
-  initialValues: { email: "test@example.com", x: "TEST" },
+  initialValues: { email: "test@example.com" },
 };
 
 const TestSite = () => {
@@ -48,7 +48,6 @@ const TestSite = () => {
         fields={data.fields}
         onSubmit={data.onSubmit}
         title={data.title}
-        initialValues={data.initialValues}
       />
     </div>
   );

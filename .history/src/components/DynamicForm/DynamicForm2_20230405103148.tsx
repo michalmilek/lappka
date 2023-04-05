@@ -1,40 +1,32 @@
 import React, { useState } from "react";
 
-export type InputType =
-  | "text"
-  | "email"
-  | "password"
-  | "number"
-  | "date"
-  | "checkbox";
-
 export type FormField = {
   label: string;
   name: string;
-  type: InputType;
+  type: "text" | "email" | "password" | "number" | "date" | "checkbox";
   required?: boolean;
 };
 
-export type Props<T> = {
+export type Props = {
   title?: string;
   fields: FormField[];
-  onSubmit: (data: Record<string, T>) => void;
-  initialValues?: Record<string, T>;
+  onSubmit: (data: Record<string, string | number | boolean>) => void;
+  initialValues?: Record<string, string | number | boolean>;
 };
 
-const DynamicForm = <T extends string | number | boolean>({
+const DynamicForm = ({
   title,
   fields,
   onSubmit,
   initialValues = {},
-}: Props<T>) => {
-  const [formData, setFormData] = useState<Record<string, T>>(initialValues);
+}: Props) => {
+  const [formData, setFormData] =
+    useState<Record<string, string | number | boolean>>(initialValues);
   //initial values
-  //custom hook
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
-    const newValue = type === "checkbox" ? (checked as T) : (value as T);
+    const newValue = type === "checkbox" ? checked : value;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
   };
 
@@ -56,7 +48,7 @@ const DynamicForm = <T extends string | number | boolean>({
                 type="checkbox"
                 id={name}
                 name={name}
-                checked={(formData[name] as boolean) ?? false}
+                checked={formData[name] ?? false}
                 required={required}
                 onChange={handleChange}
               />
@@ -65,7 +57,7 @@ const DynamicForm = <T extends string | number | boolean>({
                 type={type}
                 id={name}
                 name={name}
-                value={(formData[name] as string | number) ?? ""}
+                value={formData[name] ?? ""}
                 required={required}
                 onChange={handleChange}
               />

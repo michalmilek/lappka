@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 
-export type InputType =
-  | "text"
-  | "email"
-  | "password"
-  | "number"
-  | "date"
-  | "checkbox";
-
 export type FormField = {
   label: string;
   name: string;
-  type: InputType;
+  type: "text" | "email" | "password" | "number" | "date" | "checkbox";
   required?: boolean;
 };
 
@@ -30,7 +22,6 @@ const DynamicForm = <T extends string | number | boolean>({
 }: Props<T>) => {
   const [formData, setFormData] = useState<Record<string, T>>(initialValues);
   //initial values
-  //custom hook
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
